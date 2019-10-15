@@ -46,6 +46,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+  /*       
+         if ($exception instanceof \Illuminate\Database\QueryException $exception) {
+        return view('errors.todos');
+        }
+*/
+    return parent::render($request, $exception);
     }
 }

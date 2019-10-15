@@ -6,17 +6,19 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>Exipde tu factura</title>
+        <title>TimReports</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <link rel="shortcut icon" href="https://expidetufactura.com.mx/XPD/img/favicon.ico" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <style>
         @import url('https://fonts.googleapis.com/css?family=Numans');
 
             html,body{
-            background-image: url('http://127.0.0.1:8000/images/BGCP.JPG');
+            background-image: url("{!! asset('images/BGCP.JPG') !!}");
             background-size: cover;
             background-repeat: no-repeat;
             height: 100%;
@@ -105,16 +107,19 @@
     <body>
     
 	<div class="d-flex justify-content-center h-100">
-		<div class="card">
+        <div class="card">
+            @if(Session::has('message'))
+               {!! Session::get('message') !!}
+            @endif
 			<div class="card-header">
-				<center><img src="http://127.0.0.1:8000/images/default_blanco.png" alt="LOGO XPD"></center> 
+				<center><img  src="{!! asset('images/default_blanco.png') !!}" alt="LOGO XPD"></center> 
 			</div>
 			<div class="card-body">
-				<form action="{{ route('login.custom') }}" method="post">
+				<form action="{{ route('login') }}" method="post">
                 @csrf
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
+							<span class="input-group-text"><i class="far fa-user-circle" style="font-size: 25px;"></i></span>
 						</div>
 						<input type="text" class="form-control" id="usuario" name="usuario" placeholder="RFC" title="Se necesita un RFC" Required>
 						
@@ -137,4 +142,7 @@
 	</div>
 
     </body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </html>

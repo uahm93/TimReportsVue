@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 use Auth;
 use App\d_usuario;
 use Illuminate\Http\Request;
-
 use App\Http\Controllers\Controller;
 
 
@@ -24,26 +23,41 @@ class LoginController extends Controller
                         'usuario'    => $request['usuario'],
                         'contrasena' => $contrasena_cifrada
                          ];
-          // dd($credentials);
 
-          
         if (Auth::attempt($credentials)) {
-             // Authentication passed...
-             //$user = User::where('d_usuario', $request->d_usaurio)->first();                           
-             // dd(Auth::check());
              
-             $user = Auth::user();
+             /*$user    = Auth::user();
              $usuario = session()->put('key', $user);                                      
-             return redirect()->route('index');                
-        }else{            
-            return view ('welcome');
+             return redirect()->route('index'); */
+
+             $user    = Auth::user();
+             $usuario = session()->put('key', $user);
+             
+
+             if($user['usuario'] == 'quetzalcoatl'){
+               
+               return redirect()->route('superuser');                
+
+                
+             }else{
+               return redirect()->route('index');                
+             }
+
+             
+        }else{     
+            \Session::flash('message', '<div class="alert alert-warning alert-dismissible fade show" role="alert">Usuario o contraseña incorrectos<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');       
+            return redirect('/');
+            
+
         }
     }
 
     public function salir(){
 
-        session()->flush();   
-        echo "<script>window.location='/';</script>";
+        session()->flush();
+        Auth::logout();
+        return redirect('/');
+
 
     }
     
